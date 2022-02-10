@@ -7,7 +7,8 @@ import {
   FlatList,
   View,
 } from "react-native";
-import Header from "./components/header";
+import Header from "./components/Header";
+import TodoItem from "./components/TodoItem";
 
 export default function App() {
   const [todos, setTodos] = useState([
@@ -16,6 +17,10 @@ export default function App() {
     { text: "play on the switch", key: "3" },
   ]);
 
+  const handleDelete = (key: string) => {
+    setTodos((prev) => prev.filter((t) => t.key != key));
+  };
+
   return (
     <View style={styles.container}>
       <Header />
@@ -23,7 +28,9 @@ export default function App() {
         {/* Todo Form */}
         <FlatList
           data={todos}
-          renderItem={({ item }) => <Text>{item.text}</Text>}
+          renderItem={({ item }) => (
+            <TodoItem item={item} handler={handleDelete} />
+          )}
         />
       </View>
     </View>
