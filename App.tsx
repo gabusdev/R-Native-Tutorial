@@ -1,4 +1,4 @@
-import { StatusBar } from "expo-status-bar";
+// import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import {
   TouchableOpacity,
@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import Header from "./components/Header";
 import TodoItem from "./components/TodoItem";
+import TodoForm from "./components/TodoForm";
 
 export default function App() {
   const [todos, setTodos] = useState([
@@ -21,11 +22,16 @@ export default function App() {
     setTodos((prev) => prev.filter((t) => t.key != key));
   };
 
+  const submitHandler = (text: string) => {
+    const newTodo = { text: text, key: Math.random().toString() };
+    setTodos([newTodo, ...todos]);
+  };
+
   return (
     <View style={styles.container}>
       <Header />
       <View style={styles.content}>
-        {/* Todo Form */}
+        <TodoForm handler={submitHandler} />
         <FlatList
           data={todos}
           renderItem={({ item }) => (
