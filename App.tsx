@@ -1,12 +1,5 @@
-// import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import {
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  FlatList,
-  View,
-} from "react-native";
+import { Alert, StyleSheet, Text, FlatList, View } from "react-native";
 import Header from "./components/Header";
 import TodoItem from "./components/TodoItem";
 import TodoForm from "./components/TodoForm";
@@ -23,6 +16,12 @@ export default function App() {
   };
 
   const submitHandler = (text: string) => {
+    if (text.length == 0) {
+      Alert.alert("OOPS!", "Todo can't be empty.", [{ text: "Ok" }]);
+      // console.log("Empty invalid");
+      return;
+    }
+
     const newTodo = { text: text, key: Math.random().toString() };
     setTodos([newTodo, ...todos]);
   };
