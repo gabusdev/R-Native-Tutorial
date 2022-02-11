@@ -15,12 +15,12 @@ interface TodoItemProps {
 
 const TodoItem: FunctionComponent<TodoItemProps> = ({ item, handler }) => {
   return (
-    <TouchableOpacity onPress={() => handler(item.key)}>
-      <View style={styles.item}>
+    <View style={styles.item}>
+      <Text style={styles.itemText}>{item.text}</Text>
+      <TouchableOpacity onPress={() => handler(item.key)}>
         <MaterialIcons name='delete' size={18} color='#333' />
-        <Text style={styles.itemText}>{item.text}</Text>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </View>
   );
 };
 
@@ -33,9 +33,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: "dashed",
     borderRadius: 10,
+    justifyContent: "space-between",
   },
   itemText: {
-    marginLeft: 10,
+    // marginLeft: 10,
   },
 });
 
