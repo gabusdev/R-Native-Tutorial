@@ -11,6 +11,7 @@ import {
 import Header from "./components/Header";
 import TodoItem from "./components/TodoItem";
 import TodoForm from "./components/TodoForm";
+import SandBox from "./components/Sandbox";
 
 export default function App() {
   const [todos, setTodos] = useState([
@@ -35,17 +36,22 @@ export default function App() {
   };
 
   return (
+    // <SandBox />
+
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
         <Header />
         <View style={styles.content}>
           <TodoForm handler={submitHandler} />
-          <FlatList
-            data={todos}
-            renderItem={({ item }) => (
-              <TodoItem item={item} handler={handleDelete} />
-            )}
-          />
+          <View style={styles.list}>
+            <FlatList
+              // style={styles.list}
+              data={todos}
+              renderItem={({ item }) => (
+                <TodoItem item={item} handler={handleDelete} />
+              )}
+            />
+          </View>
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -61,5 +67,11 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 40,
+    // backgroundColor: "#555",
+    flex: 1,
+  },
+  list: {
+    // backgroundColor: "#444",
+    flex: 1,
   },
 });
