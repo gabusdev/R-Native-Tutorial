@@ -1,11 +1,12 @@
-// import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import {
-  TouchableOpacity,
+  Alert,
   StyleSheet,
   Text,
   FlatList,
   View,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import Header from "./components/Header";
 import TodoItem from "./components/TodoItem";
@@ -23,23 +24,31 @@ export default function App() {
   };
 
   const submitHandler = (text: string) => {
+    if (text.length == 0) {
+      Alert.alert("OOPS!", "Todo can't be empty.", [{ text: "Ok" }]);
+      // console.log("Empty invalid");
+      return;
+    }
+
     const newTodo = { text: text, key: Math.random().toString() };
     setTodos([newTodo, ...todos]);
   };
 
   return (
-    <View style={styles.container}>
-      <Header />
-      <View style={styles.content}>
-        <TodoForm handler={submitHandler} />
-        <FlatList
-          data={todos}
-          renderItem={({ item }) => (
-            <TodoItem item={item} handler={handleDelete} />
-          )}
-        />
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.container}>
+        <Header />
+        <View style={styles.content}>
+          <TodoForm handler={submitHandler} />
+          <FlatList
+            data={todos}
+            renderItem={({ item }) => (
+              <TodoItem item={item} handler={handleDelete} />
+            )}
+          />
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 
